@@ -1,0 +1,33 @@
+{% extends 'shops/base.html' %}
+{% block css%}
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="flex-container ">
+	<h1 class="headerf mt-5">Welcome to Printed!</h1>
+	<h2 class="headers mt-4">Print Anything, Anytime,Anywhere.</h2>
+	<h2 class="headers mt-4">How can we help you?</h2>
+	<div class="flex-containerv">
+		<div>
+			<h3 class="choicesh3">Customer</h3>
+			<svg  width="10em" viewBox="0 0 16 16" class="bi bi-file-person-fill mt-2 mb-3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+			  <path fill-rule="evenodd" d="M2 3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3zm6 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5 2.755C12.146 11.825 10.623 11 8 11s-4.146.826-5 1.755V13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.245z"/>
+			</svg>
+			<h4>I want to print stuff</h4>
+			<a href="{% url 'register' %}" class="btn btn-purple mt-2">Order Now</a>
+		</div>
+		<hr class="mt-4 mb-3">
+		<div class="vl"></div>
+		<div>
+			<h3 class="choicesh3">Shop Owner</h3>
+			<svg width="10em" viewBox="0 0 16 16" class="bi bi-building mt-2 mb-3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+			  <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694L1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
+			  <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
+			</svg>
+			<h4>I want to add my store</h4>
+			<a href="{% url 'register_owner' %}" class="btn btn-purple mt-2" >Add Shop</a>
+
+		</div>
+	</div>
+</div>
+{% endblock content %}

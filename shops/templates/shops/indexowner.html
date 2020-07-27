@@ -1,0 +1,32 @@
+{% extends 'shops/base.html' %}
+{% block css%}
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+{% endblock %}
+{% block content %}
+{%if shops %}
+
+<h1 class="mb-3"><b>Your Shops:</b></h1>
+<div class="flex-containerv">
+	{% for shop in shops %}
+<div class="card mx-auto " style="width: 18rem;">
+  <iframe src = "https://maps.google.com/maps?q={{shop.location.y}},{{shop.location.x}}&hl=es;z=1&amp;output=embed"></iframe>
+  <div class="card-body mx-auto ">
+    <h5 class="card-title"><b>{{shop.name}}</b></h5>
+    <p class="card-text">City: {{shop.city}}</p>
+    <a href="{% url 'dash_shop' shop.id %}" class="btn btn-primary">View orders</a>
+  </div>
+</div>
+{% endfor %}
+</div>
+
+
+{% else %}
+
+<div class="flex-container">
+	<h1>You don't Have any shops!</h1>
+	<h3>Create one now</h3>
+	<a class="btn btn-purple mt-5" style="font-size: 40px;border-radius: 16px;" href="{% url 'newshop' %}">Create Shop</a>
+</div>
+
+{% endif%}
+{% endblock content %}

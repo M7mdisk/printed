@@ -1,0 +1,25 @@
+{% extends 'shops/base.html' %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1 style="text-align: center;">Your Orders</h1>
+{% for order in orders %}
+<div class="card">
+  <div class="card-body">
+  	<h5  class="card-title" ><a href="{{order.docfile.url}}">{{order.uuid}} ({{order.shop}})</a> ({{order.date|naturaltime}}).<h6 class="card-subtitle mb-3 text-muted">{{order.date}}</h6></h5>
+  	<div class=" text-center">
+  	{% if order.ptype.name == "Colored" %}
+    <h6 class="card-subtitle mb-2 mx-auto"><b>{{order.type}}</b></h6>
+
+  	{% else %}
+
+    <h6 class="card-subtitle mb-2 text-muted mx-auto"><b>{{order.type}}</b></h6>
+  	{% endif %}
+    <p class="card-text ">Quantity: <b style="font-size: 30px">{{order.quantity}}</b></p>		  		
+  	<h5>Total Price: {{order.total}}</h5>
+    <h2>Order Status: {{order.status}}</h2>
+  	</div>
+  </div>
+</div>
+{% endfor %}
+{% endblock content %}

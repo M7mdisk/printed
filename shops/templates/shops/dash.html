@@ -1,0 +1,96 @@
+{% extends 'shops/base.html' %}
+{% load humanize %}
+{% load static%}
+{% load crispy_forms_tags %}
+{% block css%}
+<script data-pdfjs-src="{% static 'pdfThumbnails/build/pdf.js' %}" src="{% static 'pdfThumbnails/pdfThumbnails.js' %}" ></script>
+{% endblock %}
+{% block content %}
+<div class="flex-container">
+<h1 style="text-align: center;">Dashboard</h1>
+{% for order in page_obj  %}
+<div class="card mb-1 ">
+  <div class="card-body flex-containertop">
+    <div class="mr-3">
+      <a href="{{order.docfile.url}}" target="_blank">
+      {% if order.extension == '.pdf'%}
+        <img data-pdf-thumbnail-file="{{order.docfile.url}}" src="{% static 'img/pdf.png'%}" id='preview' class="img-sdds" height="400px">
+      {% else %}
+        <embed src="{{order.docfile.url}}" id='preview' height="400px">
+
+      {% endif %}
+      </a>
+    </div>
+    <div class="">
+      <h5  class="card-title" ><a href="{{order.docfile.url}}" target="_blank">{{order.uuid}} </a>({{order.date|naturaltime}})<h5 class="card-subtitle mb-4 text-muted">{{order.date}}</h5></h5>
+      <div class="">
+      <h6 class="card-subtitle mb-1"><b>{{order.type}}</b></h6>
+      <h6 class="card-subtitle mb-1">Current status:<b>{{order.status}}</b></h6>
+      <p class="card-text ">Quantity: <b style="font-size: 30px">{{order.quantity}}</b></p>   
+    </div>
+    <div class="flex-containerv" style="text-align: right;">
+    <form id="{{order.uuid}}" >
+      {% csrf_token %}
+        <div class="form-group">
+    <label for="exampleFormControlSelect1">Change Status</label>
+    <select class="form-control" id="status-select">
+      <option>On Queue</option>
+      <option>Printing</option>
+      <option>Done</option>
+      <option>Recieved</option>
+      <option>File Broken</option>
+
+    </select>
+  </div>
+  <button class="btn btn-info" id='submit' type="submit">Change</button>
+</form>
+    </div>
+    </div>
+      <h5 class="price mb-4 mr-4">Total Price: <b>{{order.total}}</b></h5>      
+  </div>
+</div>
+{% endfor %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+</div>
+{% endblock content %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<script type="text/javascript">
+  const csrftoken = Cookies.get('csrftoken');
+  var choices = ["On Queue", "Printing", "Done", "Recieved","File Broken"];
+ $('#submit').click(function() {
+  var status =  $("#status-select :selected").text();
+  if(choices.includes(status) == true){
+  var id=$(this).parent("form").attr('id');
+    $.ajax({
+        url: "/dash/",
+        type: 'POST',
+        data: {
+            order : id,
+            status: status,
+            csrfmiddlewaretoken: csrftoken,
+        },
+        success: function(msg) {
+            alert('Email Sent');
+        }               
+    });
+  }
+}); 
+</script>
+{% endblock %}
