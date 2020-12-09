@@ -8,4 +8,4 @@ This is a project idea I had and I used it while learning django, I'm  happy wit
 - OpenStreetMap and Leaflet js for Maps, since google Maps API is not free anymore..
 - A lot of time :)
 
-* Feel free to use this in whatever you want
+#### Feel free to use this in whatever you want
